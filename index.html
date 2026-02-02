@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💰 薪资进度管理</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 主容器 -->
+    <div id="app">
+        <!-- 首页：实习生列表 -->
+        <div id="page-home" class="page active">
+            <div class="header-gradient">
+                <h1 class="title">💰 薪资进度管理</h1>
+                <p class="subtitle">选择你的身份开始使用</p>
+            </div>
+
+            <div class="container">
+                <div id="intern-list" class="intern-list"></div>
+
+                <div class="empty" id="empty-state" style="display: none;">
+                    <div class="empty-emoji">😊</div>
+                    <div class="empty-text">还没有实习生记录</div>
+                    <div class="empty-hint">点击下方按钮添加</div>
+                </div>
+
+                <button class="btn-primary btn-fixed" onclick="showAddInternPage()">
+                    ➕ 添加实习生
+                </button>
+            </div>
+        </div>
+
+        <!-- 添加实习生页面 -->
+        <div id="page-add-intern" class="page">
+            <div class="header-fun">
+                <div class="emoji-spin">💰</div>
+                <h1 class="title">开启赚钱之旅</h1>
+                <p class="subtitle">填写信息，开始"薅老板羊毛"</p>
+            </div>
+
+            <div class="container">
+                <div class="form-card">
+                    <div class="form-item">
+                        <label>🧑 你叫啥名？</label>
+                        <input type="text" id="intern-name" placeholder="输入你的大名" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>🏷️ 工号是多少？</label>
+                        <input type="text" id="intern-id" placeholder="比如: INT001" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>💵 每天能赚多少？</label>
+                        <div class="salary-input">
+                            <span class="currency">¥</span>
+                            <input type="number" id="daily-salary" placeholder="输入日薪" />
+                            <span class="unit">/天</span>
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <label>⏰ 啥时候上班？</label>
+                        <input type="time" id="work-start" value="09:00" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>🌙 啥时候下班？</label>
+                        <input type="time" id="work-end" value="18:00" />
+                    </div>
+
+                    <div class="form-item">
+                        <label>📅 啥时候入职的？</label>
+                        <input type="date" id="entry-date" />
+                    </div>
+
+                    <div class="form-item optional">
+                        <label>📞 手机号（选填）</label>
+                        <input type="tel" id="phone" placeholder="方便联系你" />
+                    </div>
+
+                    <div class="form-item optional">
+                        <label>🏢 在哪个部门？（选填）</label>
+                        <input type="text" id="department" placeholder="比如: 技术部" />
+                    </div>
+                </div>
+
+                <div class="tips-card">
+                    <span class="tips-icon">💡</span>
+                    <span class="tips-text">设置好工作时间后，系统会精确到秒计算你的实时薪资哦！</span>
+                </div>
+
+                <button class="btn-primary" onclick="submitIntern()">
+                    🚀 开始记录我的💰
+                </button>
+                <button class="btn-secondary" onclick="showHomePage()">
+                    返回
+                </button>
+            </div>
+        </div>
+
+        <!-- 实时薪资页面 -->
+        <div id="page-salary" class="page">
+            <div class="container">
+                <div class="header-simple">
+                    <button class="btn-back" onclick="showHomePage()">← 返回</button>
+                    <h2 id="greeting">嗨！</h2>
+                    <p id="current-date"></p>
+                </div>
+
+                <div class="salary-main">
+                    <div class="salary-label">💸 实时薪资进度</div>
+                    <div class="salary-amount-wrapper">
+                        <span class="currency">¥</span>
+                        <span class="salary-amount" id="total-salary">0.00</span>
+                    </div>
+                    <div class="salary-hint pulse">每秒都在增加中... 💰</div>
+                </div>
+
+                <div class="today-card">
+                    <div class="today-header">
+                        <span class="today-title">🌟 今日收益</span>
+                        <span class="today-salary" id="today-salary">¥0.00</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="today-progress"></div>
+                    </div>
+                    <div class="progress-text" id="today-worked"></div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-emoji">📅</div>
+                        <div class="stat-value" id="completed-days">0</div>
+                        <div class="stat-label">已工作天数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">😴</div>
+                        <div class="stat-value" id="leave-days">0</div>
+                        <div class="stat-label">请假天数</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">💵</div>
+                        <div class="stat-value" id="daily-salary-display">¥0</div>
+                        <div class="stat-label">日薪</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">⏱️</div>
+                        <div class="stat-value" id="salary-per-second">¥0/秒</div>
+                        <div class="stat-label">薪资速度</div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="action-btn" onclick="showLeavePage()">
+                        <div class="btn-emoji">🏖️</div>
+                        <div class="btn-text">请假记录</div>
+                    </button>
+                    <button class="action-btn" onclick="showStatisticsPage()">
+                        <div class="btn-emoji">📊</div>
+                        <div class="btn-text">薪资统计</div>
+                    </button>
+                </div>
+
+                <div class="fun-tips" id="fun-tip">
+                    <span class="tip-emoji">🔥</span>
+                    <span class="tip-text">时间就是金钱，每一秒都在涨薪！</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 请假管理页面 -->
+        <div id="page-leave" class="page">
+            <div class="container">
+                <div class="header-simple">
+                    <button class="btn-back" onclick="showSalaryPage()">← 返回</button>
+                    <h2>🏖️ 请假管理</h2>
+                    <p>记录你的休息日</p>
+                </div>
+
+                <div class="add-card">
+                    <h3>➕ 添加请假</h3>
+                    <div class="form-item">
+                        <label>📅 请假日期</label>
+                        <input type="date" id="leave-date" />
+                    </div>
+                    <div class="form-item">
+                        <label>💬 请假原因（选填）</label>
+                        <textarea id="leave-reason" placeholder="为啥要请假呢？" rows="3"></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="addLeave()">
+                        🎯 确认请假
+                    </button>
+                </div>
+
+                <div class="records-section">
+                    <h3>📝 请假记录</h3>
+                    <div id="leave-list"></div>
+                    <div class="empty" id="leave-empty" style="display: none;">
+                        <div class="empty-emoji">😊</div>
+                        <div class="empty-text">本月还没有请假记录</div>
+                        <div class="empty-hint">全勤加油！</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 薪资统计页面 -->
+        <div id="page-statistics" class="page">
+            <div class="container">
+                <div class="header-simple">
+                    <button class="btn-back" onclick="showSalaryPage()">← 返回</button>
+                    <h2>📊 薪资统计</h2>
+                    <p>看看这个月赚了多少</p>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-label">💰 本月预计收入</div>
+                    <div class="summary-amount-wrapper">
+                        <span class="currency">¥</span>
+                        <span class="summary-amount" id="monthly-salary">0.00</span>
+                    </div>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="item-value" id="monthly-work-days">0</div>
+                            <div class="item-label">工作天数</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="item-value" id="monthly-leave-days">0</div>
+                            <div class="item-label">请假天数</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="yearly-section">
+                    <h3>📅 年度统计</h3>
+                    <div class="yearly-card">
+                        <div class="yearly-item">
+                            <span>🎯 年度总收入</span>
+                            <span id="yearly-salary">¥0.00</span>
+                        </div>
+                        <div class="yearly-item">
+                            <span>💼 累计工作天数</span>
+                            <span id="yearly-work-days">0天</span>
+                        </div>
+                        <div class="yearly-item">
+                            <span>🏖️ 累计请假天数</span>
+                            <span id="yearly-leave-days">0天</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fun-summary" id="fun-summary">
+                    <div class="fun-emoji">🎉</div>
+                    <div class="fun-text">开始记录你的薪资进度吧！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

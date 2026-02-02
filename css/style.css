@@ -1,0 +1,749 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: #f5f5f5;
+    overflow-x: hidden;
+}
+
+/* 页面切换 */
+.page {
+    display: none;
+    min-height: 100vh;
+}
+
+.page.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* 渐变背景头部 */
+.header-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 60px 30px 40px;
+    text-align: center;
+    color: white;
+}
+
+.header-fun {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    padding: 60px 30px 40px;
+    text-align: center;
+    color: white;
+}
+
+.emoji-spin {
+    font-size: 80px;
+    display: inline-block;
+    animation: rotate 2s ease-in-out infinite;
+}
+
+@keyframes rotate {
+    0%, 100% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+}
+
+.title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* 容器 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* 实习生列表 */
+.intern-list {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 80px;
+}
+
+.intern-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.intern-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.intern-info {
+    flex: 1;
+}
+
+.intern-name {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.intern-id {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.intern-dept {
+    font-size: 13px;
+    color: #999;
+}
+
+.intern-salary {
+    text-align: right;
+}
+
+.salary-label {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 5px;
+}
+
+.salary-amount {
+    font-size: 28px;
+    font-weight: bold;
+    color: #3b82f6;
+}
+
+/* 表单 */
+.form-card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.form-item {
+    margin-bottom: 20px;
+}
+
+.form-item.optional {
+    opacity: 0.8;
+}
+
+.form-item label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.form-item input,
+.form-item textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.form-item input:focus,
+.form-item textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.salary-input {
+    display: flex;
+    align-items: center;
+    border: 2px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 0 15px;
+    transition: all 0.3s;
+}
+
+.salary-input:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.currency {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff6b6b;
+    margin-right: 5px;
+}
+
+.salary-input input {
+    flex: 1;
+    border: none;
+    padding: 12px 5px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.salary-input input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.unit {
+    font-size: 14px;
+    color: #999;
+}
+
+/* 提示卡片 */
+.tips-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.tips-icon {
+    font-size: 32px;
+    margin-right: 15px;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+.tips-text {
+    flex: 1;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 按钮 */
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 10px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 16px;
+    background: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: #e0e0e0;
+}
+
+.btn-fixed {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    max-width: 760px;
+    margin: 0 auto;
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+/* 简单头部 */
+.header-simple {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.btn-back {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-back:hover {
+    background: #f8f8f8;
+    border-color: #3b82f6;
+}
+
+.header-simple h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.header-simple p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* 实时薪资主卡片 */
+.salary-main {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border-radius: 24px;
+    padding: 40px 30px;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
+    box-shadow: 0 12px 36px rgba(245, 87, 108, 0.4);
+}
+
+.salary-label {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.salary-amount-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.salary-amount-wrapper .currency {
+    font-size: 32px;
+    margin-right: 5px;
+    margin-top: 8px;
+}
+
+.salary-amount {
+    font-size: 64px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.salary-hint {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.pulse {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* 今日卡片 */
+.today-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.today-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.today-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.today-salary {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f5576c;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    transition: width 1s ease-out;
+}
+
+.progress-text {
+    font-size: 13px;
+    color: #999;
+    text-align: center;
+}
+
+/* 统计网格 */
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.stat-emoji {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.stat-value {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #999;
+}
+
+/* 操作按钮 */
+.actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    background: white;
+    border: none;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.action-btn .btn-emoji {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.action-btn .btn-text {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+/* 有趣提示 */
+.fun-tips {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.tip-emoji {
+    font-size: 32px;
+    margin-right: 15px;
+}
+
+.tip-text {
+    flex: 1;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 空状态 */
+.empty {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-emoji {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.empty-text {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.empty-hint {
+    font-size: 14px;
+    color: #999;
+}
+
+/* 添加卡片 */
+.add-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.add-card h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* 记录区域 */
+.records-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#leave-list {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.record-item {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.record-info {
+    flex: 1;
+}
+
+.record-date {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.record-reason {
+    font-size: 14px;
+    color: #666;
+}
+
+.delete-btn {
+    font-size: 28px;
+    cursor: pointer;
+    padding: 5px 10px;
+    transition: transform 0.2s;
+}
+
+.delete-btn:hover {
+    transform: scale(1.2);
+}
+
+/* 汇总卡片 */
+.summary-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 24px;
+    padding: 35px 25px;
+    color: white;
+    margin-bottom: 30px;
+    box-shadow: 0 12px 36px rgba(102, 126, 234, 0.4);
+}
+
+.summary-label {
+    font-size: 16px;
+    opacity: 0.9;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.summary-amount-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-bottom: 25px;
+}
+
+.summary-amount-wrapper .currency {
+    font-size: 32px;
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.summary-amount {
+    font-size: 56px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.summary-item {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+}
+
+.item-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.item-label {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* 年度区域 */
+.yearly-section {
+    margin-bottom: 30px;
+}
+
+.yearly-section h3 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.yearly-card {
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.yearly-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 15px;
+}
+
+.yearly-item:last-child {
+    border-bottom: none;
+}
+
+.yearly-item span:first-child {
+    color: #666;
+}
+
+.yearly-item span:last-child {
+    font-weight: bold;
+    color: #333;
+}
+
+/* 有趣总结 */
+.fun-summary {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.fun-emoji {
+    font-size: 60px;
+    margin-bottom: 15px;
+    display: inline-block;
+    animation: bounce 1s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.fun-text {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .salary-amount {
+        font-size: 48px;
+    }
+
+    .stats-grid,
+    .actions,
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+}
